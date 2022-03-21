@@ -1,0 +1,46 @@
+<div class="container">
+  <a *ngIf="currentUser.role === 'USER'" routerLink="/appraisals" style="margin-bottom: 5px;text-decoration: none" mat-raised-button class="x-primary-bg">Start New Appraisal</a>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Name Column -->
+    <ng-container matColumnDef="creatorFullname">
+      <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.creatorFullname}} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="dateCreated">
+      <th mat-header-cell *matHeaderCellDef> Date Created</th>
+      <td mat-cell *matCellDef="let element"> {{element.dateCreated | date}} </td>
+    </ng-container>
+
+
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} <small style="font-style: italic; color: #576177">{{element.status == 'OPEN' ? 'pending appraisal':''}}</small>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="finalScore">
+      <th mat-header-cell *matHeaderCellDef> Overall Score (%) </th>
+      <td mat-cell *matCellDef="let element"> {{element.calculatedScore ? element.calculatedScore : 'N/A'}} <small style="font-style: italic; color: #576177"></small>  </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="['/appraisals']" [queryParams]="{ id: element.appraisalId }" mat-stroked-button class="x-view-btn">View</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+
+

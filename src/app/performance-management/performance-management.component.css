@@ -1,0 +1,16 @@
+table {
+  width: 750px;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  color: rgba(0,0,0,.87);
+}
+
+.x-view-btn{
+  border-color: #FFBF00;
+  color: #FFBF00
+}

@@ -1,0 +1,24 @@
+mat-slider {
+  width: 100%;
+}
+
+:host ::ng-deep .mat-slider-thumb {
+  background-color: #FFBF00;
+}
+
+:host ::ng-deep .mat-slider-thumb-label {
+  background-color: #FFBF00;
+}
+
+:host ::ng-deep .mat-slider-track-fill {
+  background-color: #FFBF00;
+}
+
+
+.x-save-btn{
+  background-color: #FFBF00;
+}
+
+/* textarea{
+  height: 40px;
+} */

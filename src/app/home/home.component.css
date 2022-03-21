@@ -1,0 +1,45 @@
+.card-header{
+  background-color: #FFBF00;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #FFBF00 !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #FFBF00 !important;
+}
+
+::ng-deep.mat-form-field-outline {
+  /*change color of underline*/
+  border-color: #FFBF00 !important;
+  color: #FFBF00 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #FFBF00 !important;
+}
+
+.home-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+/* making all items to be 100% width via flex basis */
+/* .home-wrapper > * {
+  flex: 1 100%;
+} */
+
+.home-item {
+  margin: 0 .1em;
+}
+
+/* @media (min-width: 992px) {
+  .home-item {
+    margin: 0 .2em;
+  }
+} */

@@ -1,0 +1,62 @@
+<form [formGroup]="form">
+  <div class="row" style="padding: 10px 10px 0px 10px;">
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Job Holder's Name</mat-label>
+        <input matInput placeholder="Employee Name" formControlName="fullname" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Job Title</mat-label>
+        <input matInput placeholder="Job Title" formControlName="position" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="deptId" disabled>
+          <mat-option *ngFor="let dept of depts" [value]="dept.deptId">
+            {{dept.deptName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Location</mat-label>
+        <input matInput placeholder="Location" formControlName="location" readonly>
+      </mat-form-field>
+    </div>
+
+
+  </div>
+  <div class="row" style="padding: 0px 10px;">
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Employment Date</mat-label>
+        <input matInput placeholder="Employment Date" formControlName="employedDate" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Year Under Review</mat-label>
+        <input matInput placeholder="Year Under Review" formControlName="reviewYear" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Assessment Date</mat-label>
+        <input matInput placeholder="Assessment Date" formControlName="assessmentDate" readonly>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Managing Supervisor</mat-label>
+        <input matInput placeholder="Managing Supervisor" formControlName="supervisor" readonly>
+      </mat-form-field>
+    </div>
+
+  </div>
+</form>

@@ -1,0 +1,273 @@
+<!-- <div class="row">
+  <div class="col-md-4">
+    <div class="card" >
+      <h3 class="card-header">User Profile</h3>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <mat-form-field appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input matInput formControlName="firstName">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="position">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="deptId" >
+              <mat-option *ngFor="let dept of depts" [value]="dept.deptId">
+                {{dept.deptName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Branch</mat-label>
+            <input matInput formControlName="location">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Managing Supervisor</mat-label>
+            <input matInput formControlName="supervisor">
+          </mat-form-field>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card" >
+      <h3 class="card-header">User Profile</h3>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <mat-form-field appearance="outline">
+            <mat-label>Firstname</mat-label>
+            <input matInput formControlName="firstName">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Lastname</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="position">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="deptId" >
+              <mat-option *ngFor="let dept of depts" [value]="dept.deptId">
+                {{dept.deptName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Branch</mat-label>
+            <input matInput formControlName="location">
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="outline">
+            <mat-label>Managing Supervisor</mat-label>
+            <input matInput formControlName="supervisor">
+          </mat-form-field>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card" >
+      <div *ngIf="currentUser.role === 'MANAGER'" class="card" style="width: 100%;">
+        <h3 class="card-header">Your Subordinates</h3>
+        <div class="card-body">
+          <table style="width: 100%;" mat-table [dataSource]="subordinates">
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Position">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element">{{element.position}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> -->
+
+
+<!-- <div class="row" >
+  <div class="col-md-4" style="width: 100%;">
+
+  </div> -->
+
+  <!-- <div class="col-md-4">
+    <div *ngIf="currentUser.role === 'MANAGER'" class="card" style="width: 100%;">
+      <h3 class="card-header">Your Subordinates</h3>
+      <div class="card-body">
+        <table>
+          <th>Name</th>
+          <tbody>
+            <tr *ngFor="let item of subordinates">
+              <td>{{item.firstName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->
+<!-- </div> -->
+
+<div class="home-wrapper">
+
+
+  <div class="home-item" style="height: fit-content; width: 300px">
+    <div class="stats stats-success">
+      <div style="display: inline-flex;"><h3 class="stats-title"> PROFILE </h3><span style="margin-left: auto;"><i style="font-size: 20px;" class='fas fa-user'></i></span></div>
+      <div>
+        <form [formGroup]="profileForm">
+          <table>
+            <tr>
+              <td>Name </td><td>{{profileData?.fullname}}</td>
+            </tr>
+            <tr><td>Job Title </td><td>{{profileData?.position}}</td></tr>
+            <tr><td>Department </td><td>{{userDept}}</td></tr>
+            <tr><td>Location </td><td>{{profileData?.location}}</td></tr>
+            <tr *ngIf="currentUser.role === 'USER'"><td>Supervisor </td><td>{{profileData?.supervisor}}</td></tr>
+
+          </table>
+        </form>
+
+      </div>
+      <div class="stats-content">
+          <!-- <div class="stats-icon">
+            <i class='fas fa-user'></i>
+          </div>
+          <div class="stats-data">
+              <div class="stats-number"></div>
+          </div> -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="card home-item" >
+    <h3 class="card-header">User Profile</h3>
+    <div class="card-body">
+      <form [formGroup]="form">
+        <mat-form-field appearance="outline">
+          <mat-label>Firstname</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label>Lastname</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label>Job Title</mat-label>
+          <input matInput formControlName="position">
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="deptId" >
+            <mat-option *ngFor="let dept of depts" [value]="dept.deptId">
+              {{dept.deptName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label>Branch</mat-label>
+          <input matInput formControlName="location">
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline">
+          <mat-label>Managing Supervisor</mat-label>
+          <input matInput formControlName="supervisor">
+        </mat-form-field>
+      </form>
+
+    </div>
+  </div> -->
+
+  <!-- <div class="card home-item" style="height: fit-content;">
+    <div *ngIf="currentUser.role === 'MANAGER'">
+      <h3 class="card-header">Your Subordinates</h3>
+      <div class="card-body">
+        <table style="width: 100%;" mat-table [dataSource]="subordinates">
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef style="width: 150px"> Name </th>
+            <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Position">
+            <th mat-header-cell *matHeaderCellDef> Position </th>
+            <td mat-cell *matCellDef="let element">{{element.position}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div> -->
+
+  <div *ngIf="currentUser.role === 'MANAGER'" class="home-item" style="height: fit-content; width: 300px">
+    <div class="stats stats-primary">
+      <h3 class="stats-title"> SURBORDINATES </h3>
+      <table>
+        <tr *ngFor="let sub of subordinates"><td>{{ sub.firstName }} {{ sub.lastName }}</td><td>{{ sub.position | titlecase}}</td></tr>
+      </table>
+      <!-- <div *ngFor="let sub of subordinates">{{ sub.firstName }} {{ sub.lastName }}, <span style="margin-left: 15px;">{{ sub.position | titlecase}}</span> </div> -->
+      <div class="stats-content">
+
+        <div class="stats-icon">
+          <i class='fas fa-users'></i>
+        </div>
+        <div class="stats-data">
+            <div class="stats-number">{{subordinatesCount}}</div>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentUser.role === 'MANAGER'" class="home-item" style="height: fit-content; width: 300px">
+    <div class="stats stats-danger">
+      <h3 class="stats-title"> PENDING APPRAISALS </h3>
+      <div class="stats-content">
+          <div class="stats-icon">
+            <i class='fas fa-edit'></i>
+          </div>
+          <div class="stats-data">
+              <div class="stats-number">{{pendingAppraisals}}</div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+

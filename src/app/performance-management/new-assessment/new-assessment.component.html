@@ -1,0 +1,499 @@
+<div class="container">
+  <fieldset style="margin-bottom: 16px; border: 2px solid #D6DBDF;">
+    <legend style="width: auto;"><h3 style="margin-bottom: 0px;padding: 5px;">Appraisee Info</h3></legend>
+    <div style="background-color: #ffffff;min-height: 100px;">
+      <app-personal-details-form [pData]="appraisalData"></app-personal-details-form>
+    </div>
+  </fieldset>
+</div>
+<div class="container">
+  <fieldset style="border: 2px solid #D6DBDF;">
+    <legend style="width: auto;"><h3 style="margin-bottom: 0px;padding: 5px">Appraisal Info</h3></legend>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+      <mat-step [stepControl]="form2Group" label="PERSONAL DEVELOPMENT" state="personal">
+
+        <form [formGroup]="form2Group">
+          <div class="container">
+            <div style="margin-bottom: 10px;">This section must be used for personal development needs of the Appraisee in line with the Strategic Objectives of
+              the organization
+            </div>
+            <div class="row" >
+              <div class="col-md-12">
+                <button *ngIf="showGoalBtns" type="button" (click)="openDialog('Personal Development')" mat-raised-button  class="x-primary-bg"> <i class='fas fa-edit'></i> Set New Personal Development Goal</button>
+                <button [ngClass]="{'x-save-btn': !disablePersonalSave}" (click)="submitForAppraisal('personal')" style="margin-left: 10px;" [disabled]="disablePersonalSave" type="button" mat-stroked-button color="primary"> <i class='fas fa-save'></i>  Save & Continue</button>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <table mat-table #table2 [dataSource]="dataSourcePersonal">
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                  <!-- Position Column -->
+                  <!-- <ng-container matColumnDef="id">
+                    <th style="width: 50px" mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="goal">
+                    <th mat-header-cell *matHeaderCellDef> Personal Development Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.goal}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <!-- <ng-container matColumnDef="measures">
+                    <th mat-header-cell *matHeaderCellDef> Key Measures </th>
+                    <td mat-cell *matCellDef="let element"> {{element.measures}} </td>
+                  </ng-container> -->
+                  <ng-container matColumnDef="activity">
+                    <th mat-header-cell *matHeaderCellDef> Activity To Achieve Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.activity}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="comments">
+                    <th mat-header-cell *matHeaderCellDef> Comments </th>
+                    <td style="white-space: pre-wrap;" mat-cell *matCellDef="let element"> {{element.comments}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="score">
+                    <th mat-header-cell *matHeaderCellDef> Score </th>
+                    <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+                  </ng-container>
+
+                  <ng-container  matColumnDef="appraiser_rating">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Rating </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserRating}} </td>
+                  </ng-container>
+
+                  <!-- <ng-container matColumnDef="appraiser_comments">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserComments}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="action">
+                    <th style="width: 50px; padding-right: 0px;" mat-header-cell *matHeaderCellDef>  </th>
+                    <td style="padding-right: 0px;" mat-cell *matCellDef="let element">
+                      <a *ngIf="showEditBtn" matTooltip="Edit Entry" (click)="openDialog('Personal Development',element, true)" style="margin-right: 10px; color:  #576177"><i class='fas fa-pencil-alt'></i></a>
+                      <a *ngIf="showDeleteBtn" matTooltip="Delete Entry" (click)="deleteGoal(element, 'Personal Development')" style="color: red"><i class='fas fa-trash-alt'></i></a>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="form3Group" state="career">
+        <form [formGroup]="form3Group" >
+          <ng-template matStepLabel>CAREER DEVELOPMENT </ng-template>
+          <div class="container">
+            <div style="margin-bottom: 10px;">This section must be used for career development needs of the Appraisee in line with the Strategic Objectives of
+              the organization
+            </div>
+            <div class="row" >
+              <div class="col-md-12">
+                <button *ngIf="showGoalBtns" type="button" (click)="openDialog('Career Development')" mat-raised-button class="x-primary-bg"><i class='fas fa-edit'></i> Set New Career Development Goal</button>
+                <button *ngIf="showSaveBtn" [ngClass]="{'x-save-btn': !disableCareerSave}" (click)="submitForAppraisal('career')" style="margin-left: 10px;" [disabled]="disableCareerSave" type="button" mat-stroked-button color="primary"> <i class='fas fa-save'></i>  Save & Continue</button>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <table mat-table #table3 [dataSource]="dataSourceCareer">
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                  <!-- Position Column -->
+                  <!-- <ng-container matColumnDef="id">
+                    <th style="width: 50px" mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="goal">
+                    <th mat-header-cell *matHeaderCellDef> Career Development Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.goal}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <!-- <ng-container matColumnDef="measures">
+                    <th mat-header-cell *matHeaderCellDef> Key Measures </th>
+                    <td mat-cell *matCellDef="let element"> {{element.measures}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="activity">
+                    <th mat-header-cell *matHeaderCellDef> Activity To Achieve Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.activity}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="comments">
+                    <th mat-header-cell *matHeaderCellDef> Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="score">
+                    <th mat-header-cell *matHeaderCellDef> Score </th>
+                    <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+                  </ng-container>
+
+                  <ng-container  matColumnDef="appraiser_rating">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Rating </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserRating}} </td>
+                  </ng-container>
+
+                  <!-- <ng-container matColumnDef="appraiser_comments">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserComments}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="action">
+                    <th style="width: 50px; padding-right: 0px;" mat-header-cell *matHeaderCellDef>  </th>
+                    <td style="padding-right: 0px;" mat-cell *matCellDef="let element">
+                      <a *ngIf="showEditBtn" matTooltip="Edit Entry" (click)="openDialog('Career Development',element, true)" style="margin-right: 10px; color:  #576177"><i class='fas fa-pencil-alt'></i></a>
+                      <a *ngIf="showDeleteBtn" matTooltip="Delete Entry" (click)="deleteGoal(element, 'Career Development')" style="color: red"><i class='fas fa-trash-alt'></i></a>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="form1Group" state="performance">
+        <form [formGroup]="form1Group" >
+          <ng-template matStepLabel> PERFORMANCE PLAN </ng-template>
+          <div class="container">
+            <div style="margin-bottom: 10px;">
+              This section must be used to set Performance Objectives for the Performance Period. The objectives must be discussed and understood by both
+              Appraisee and Appraiser. Objectives set must be strictly aligned with the organization’s goals and objectives.
+              You can click on the 'Show Performance Rating' button to view the rating for this section.
+
+            </div>
+            <div class="row" >
+              <div class="col-md-9">
+                <button *ngIf="showGoalBtns" type="button" (click)="openDialog('Performance')" mat-raised-button class="x-primary-bg"> <i class='fas fa-edit'></i> Set New Performance Goal</button>
+                <button [ngClass]="{'x-save-btn': !disablePerformanceSave}" (click)="submitForAppraisal('performance')" style="margin-left: 10px; " [disabled]="disablePerformanceSave" type="button" mat-stroked-button ><i class='fas fa-save'></i> Save & Continue</button>
+              </div>
+              <div class="col-md-3" style="align-items: flex-end;">
+                <a type="button" mat-stroked-button (click)="togglePerformanceRating()" style="border-color: #FFBF00; color: #FFBF00"> <i class='fas fa-info-circle'></i> {{showPerformanceRating ? 'Hide' : 'Show'}} Performance Rating</a>
+
+              </div>
+            </div>
+
+            <div class="row" *ngIf="showPerformanceRating" style="margin-top: 15px">
+              <div class="col-md-12">
+                <p style="font-weight: bold;color: #FFBF00; ">PERFORMANCE RATING</p>
+
+                  <p><b>5 = Outstanding</b> - Consistently exceeds standards </p>
+                  <p><b>4 = Exceeds Expectations </b> - Frequently exceeds standards
+                  </p>
+                  <p><b>3 = Meets Expectations </b> - Generally meets standards
+                  </p>
+                  <p><b>2 = Needs Improvement </b> Frequently fails to meet standards
+                  </p>
+                  <p><b>1 = Does Not Meet Expectations  </b> - Fails to meet standards
+                  </p>
+
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+
+
+                <table mat-table #table [dataSource]="dataSource">
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                  <!-- Position Column -->
+                  <!-- <ng-container matColumnDef="id">
+                    <th style="width: 50px" mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="goal">
+                    <th mat-header-cell *matHeaderCellDef> Performance Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.goal}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="measures">
+                    <th mat-header-cell *matHeaderCellDef> Key Performance Measures </th>
+                    <td mat-cell *matCellDef="let element"> {{element.measures}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="comments">
+                    <th mat-header-cell *matHeaderCellDef> Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="score">
+                    <th mat-header-cell *matHeaderCellDef> Score </th>
+                    <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container  matColumnDef="appraiser_rating">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Rating </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserRating}} </td>
+                  </ng-container>
+
+                  <!-- <ng-container matColumnDef="appraiser_comments">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserComments}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="action">
+                    <th style="width: 50px; padding-right: 0px;" mat-header-cell *matHeaderCellDef>  </th>
+                    <td style="padding-right: 0px;" mat-cell *matCellDef="let element">
+                      <a *ngIf="showEditBtn" matTooltip="Edit Entry" (click)="openDialog('Performance',element, true)" style="margin-right: 10px; color:  #576177"><i class='fas fa-pencil-alt'></i></a>
+                      <a *ngIf="showDeleteBtn" matTooltip="Delete Entry" (click)="deleteGoal(element, 'Performance')" style="color: red"><i class='fas fa-trash-alt'></i></a>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="form4Group" state="work">
+        <form [formGroup]="form4Group" >
+          <ng-template matStepLabel> WORK & LIFE BALANCE </ng-template>
+          <div class="container">
+            <div style="margin-bottom: 10px;">This section must be used to set work and life balance goals of the Appraisee in line with the Strategic Objectives of
+              the organization
+            </div>
+            <div class="row" >
+              <div class="col-md-12">
+                <button *ngIf="showGoalBtns" type="button" (click)="openDialog('Life Balance')" mat-raised-button class="x-primary-bg"> <i class='fas fa-edit'></i> Set New Work & Life Balance Goal</button>
+                <button [ngClass]="{'x-save-btn': !disableLifeSave}" (click)="submitForAppraisal('life')" style="margin-left: 10px;" [disabled]="disableLifeSave" type="button" mat-stroked-button color="primary"> <i class='fas fa-save'></i>  Save & Continue</button>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <table mat-table #table4 [dataSource]="dataSourceLife">
+                  <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                  <!-- Position Column -->
+                  <!-- <ng-container matColumnDef="id">
+                    <th style="width: 50px" mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="goal">
+                    <th mat-header-cell *matHeaderCellDef> Work & Life Balance Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.goal}} </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <!-- <ng-container matColumnDef="measures">
+                    <th mat-header-cell *matHeaderCellDef> Key Measures </th>
+                    <td mat-cell *matCellDef="let element"> {{element.measures}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="activity">
+                    <th mat-header-cell *matHeaderCellDef> Activity To Achieve Goal </th>
+                    <td mat-cell *matCellDef="let element"> {{element.activity}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="comments">
+                    <th mat-header-cell *matHeaderCellDef> Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.comments}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="score">
+                    <th mat-header-cell *matHeaderCellDef> Score </th>
+                    <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+                  </ng-container>
+
+                  <ng-container  matColumnDef="appraiser_rating">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Rating </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserRating}} </td>
+                  </ng-container>
+
+                  <!-- <ng-container matColumnDef="appraiser_comments">
+                    <th mat-header-cell *matHeaderCellDef> Appraiser's Comments </th>
+                    <td mat-cell *matCellDef="let element"> {{element.appraiserComments}} </td>
+                  </ng-container> -->
+
+                  <ng-container matColumnDef="action">
+                    <th style="width: 50px; padding-right: 0px;" mat-header-cell *matHeaderCellDef>  </th>
+                    <td style="padding-right: 0px;" mat-cell *matCellDef="let element">
+                      <a *ngIf="showEditBtn" matTooltip="Edit Entry" (click)="openDialog('Life Balance',element, true)" style="margin-right: 10px; color:  #576177"><i class='fas fa-pencil-alt'></i></a>
+                      <a *ngIf="showDeleteBtn" matTooltip="Delete Entry" (click)="deleteGoal(element, 'Life Balance')" style="color: red"><i class='fas fa-trash-alt'></i></a>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step state="overall">
+        <ng-template matStepLabel>OVERALL</ng-template>
+
+        <form [formGroup]="form5Group">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8">
+
+                <p style="margin-left: 9px; font-weight: bold; color: #FFBF00;">OVERALL PERFORMANCE RATING (APPRAISEE)</p>
+                <mat-radio-group [disabled]="(!isAppraisalNew)" class="example-radio-group" formControlName="score">
+                  <mat-radio-button class="example-radio-button" [value]="5"><b>Exceptional</b> - Consistently exceeds expectations on all evaluation factors </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="4"><b>More Than Satisfactory  </b> - Overall high performance; frequently exceeds expectations
+                    on many factors
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="3"><b>Satisfactory  </b> - Consistently meets the requirements of the job in all aspects
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="2"><b>Needs Improvement </b> - Not consistent; needs
+                    improvement to meet expectations
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="1"><b>Unacceptable </b> - Does not meet the minimum standards of performance
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-md-4">
+                <p style="visibility: hidden;">OVERALL COMMENTS</p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Comments</mat-label>
+                  <textarea [readonly]="!isAppraisalNew" rows="8" matInput placeholder="Enter overall comments here..." formControlName="comments"></textarea>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <hr />
+
+            <div  class="row" *ngIf="currentUser.role === 'USER' && isAppraisalNew">
+              <div class="col-md-12">
+                <p>Please make sure you have provided the necessary details required then click on the submit
+                  button to send this document to your Line Manager for review and appraisal. </p>
+                <button type="button" (click)="submitForAppraisal('final')" mat-raised-button class="x-primary-bg"><i class='fas fa-check'></i> Submit For Appraisal</button>
+
+              </div>
+
+            </div>
+
+            <div class="row" *ngIf="currentUser.role === 'MANAGER'">
+              <div class="col-md-8">
+
+                <p style="margin-left: 9px; font-weight: bold; color: #FFBF00;">OVERALL PERFORMANCE RATING (APPRAISER)</p>
+                <p>How do you rate the overall performance of employee</p>
+                <mat-radio-group [disabled]="isAppraisalCompleted" class="example-radio-group" formControlName="appraiserRating">
+                  <mat-radio-button class="example-radio-button" [value]="5"><b>Exceptional</b> - Consistently exceeds expectations on all evaluation factors </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="4"><b>More Than Satisfactory  </b> - Overall high performance; frequently exceeds expectations
+                    on many factors
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="3"><b>Satisfactory  </b> - Consistently meets the requirements of the job in all aspects
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="2"><b>Needs Improvement </b> - Not consistent; needs
+                    improvement to meet expectations
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" [value]="1"><b>Unacceptable </b> - Does not meet the minimum standards of performance
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-md-4">
+                <p style="visibility: hidden;">OVERALL COMMENTS</p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Comments</mat-label>
+                  <textarea [readonly]="isAppraisalCompleted" rows="8" matInput placeholder="Enter overall comments here..." formControlName="appraiserComments"></textarea>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div  class="row" *ngIf="currentUser.role === 'MANAGER'  && !isAppraisalCompleted">
+              <div class="col-md-12">
+                <p>Please make sure you have provided the necessary details required then click on the
+                  button below to complete and appraise employee. </p>
+                <button [disabled]="!form5Group.valid" type="button" (click)="submitForAppraisal('final')" mat-raised-button class="x-primary-bg"><i class='fas fa-check'></i> Complete Appraisal</button>
+
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+        </div>
+      </mat-step>
+
+
+      <!-- Icon overrides. -->
+    <ng-template matStepperIcon="performance">
+      <i class='fas fa-chart-area'></i>
+    </ng-template>
+
+    <ng-template matStepperIcon="personal">
+      <i class='fas fa-user'></i>
+    </ng-template>
+
+    <ng-template matStepperIcon="career">
+      <i class='fas fa-user-graduate'></i>
+    </ng-template>
+
+    <ng-template matStepperIcon="work">
+      <i class='fas fa-suitcase'></i>
+    </ng-template>
+
+    <ng-template matStepperIcon="overall">
+      <i class='fas fa-bookmark'></i>
+    </ng-template>
+
+    </mat-horizontal-stepper>
+  </fieldset>
+
+</div>
+<!-- <div class="container" *ngIf="appraisalDocId <= 0">
+  <button (click)="createNewAssessment()" type="button" mat-raised-button color="primary">Start Setting Goals</button>
+</div> -->
+
+<ng-http-loader *ngIf="loading"></ng-http-loader>
+

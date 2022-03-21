@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{title}} Goal</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field style="width: 100%">
+    <textarea   matInput placeholder="{{title}} Goal" formControlName="goal"></textarea>
+  </mat-form-field>
+  <mat-form-field style="width: 100%" *ngIf="(title === 'Performance')">
+    <textarea  matInput placeholder="Key Performance Measures" formControlName="measures"></textarea>
+  </mat-form-field>
+  <mat-form-field  style="width: 100%" *ngIf="(title !== 'Performance')">
+    <textarea matInput placeholder="Activity To Achieve Goal" formControlName="activity"></textarea>
+  </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <textarea  matInput placeholder="Comment" formControlName="comments"></textarea>
+  </mat-form-field>
+  <!-- <mat-form-field style="width: 100%">
+    <input matInput placeholder="Score" formControlName="score">
+  </mat-form-field> -->
+  <mat-form-field appearance="none" style="width: 100%">
+    <mat-label>Score</mat-label>
+    <mat-slider min="1" max="5" step="1" formControlName="score" [thumbLabel]="true" ></mat-slider>
+    <textarea matInput hidden></textarea>
+  </mat-form-field>
+
+  <div *ngIf="(authService.currentUser | async).role === 'MANAGER'">
+    <mat-form-field appearance="none" style="width: 100%">
+      <mat-label>Appraiser's Rating</mat-label>
+      <mat-slider min="1" max="5" step="1" formControlName="appraiserRating" [thumbLabel]="true" ></mat-slider>
+      <textarea matInput hidden></textarea>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <textarea matInput placeholder="Appraiser's Comments" formControlName="appraiserComments"></textarea>
+    </mat-form-field>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button  style="margin-right: 5px;" mat-raised-button (click)="cancel()" color="warn">Cancel</button>
+    <button [ngClass]="{'x-save-btn': !formReadOnly}" [disabled]="formReadOnly" class="mat-raised-button"(click)="save()">Ok</button>
+</mat-dialog-actions>

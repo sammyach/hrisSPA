@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* @import './assets/css/easion.css'; */
+/* @import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css'; */
+
+html, body { height: 100%; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+a {
+  cursor: pointer;
+}
+
+.x-primary-bg {
+  background-color: #FFBF00;
+}
+
+.x-primary-fg {
+  color: #FFBF00;
+}
+
+nav a:hover{
+  color: #FFBF00;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #FFBF00 !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: #FFBF00 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: #FFBF00 !important;
+}
+
+.dash-item {
+  width: 250px;
+  height: 150px;
+  padding: 10px;
+  background: tomato;
+  margin: 10px;
+}
+
